@@ -1,0 +1,9 @@
+Moment invariants to translation, rotation and scaling
+
+    * rotmi.m - computation of the moment invariants to translation, rotation and scaling
+    * cm.m - computation of the central geometric moments
+    * cmfromgm.m - conversion of the geometric moments to complex ones
+
+The function rotmi has two optional parameters p0 and q0. The implicit values 1,2 (0,2 for order limit 2) are meant for recognition of nonsymmetric objects. If the recognized objects have n-fold rotational symmetry, values 0,n (or p0,p0+n) should be used. If the objects have various fold numbers, then n can be their least common multiple. alternatively, a special list of invariants can be created in this case. The values 0,0 are meant for recognition of circularly symmetric objects.
+
+If you use functions sprintf marked as remarks in the file "rotmi.m", you obtain a list of invariants used. 

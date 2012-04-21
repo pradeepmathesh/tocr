@@ -1,0 +1,7 @@
+roger.m - feature extractor
+train.sh - train or test with MSVM
+feat.m - Active contour model - handy for contour points inspection
+
+Acknowledgement:
+
+Refer roger.m 

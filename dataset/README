@@ -1,0 +1,7 @@
+train folder contains training dataset
+test folder contains testing dataset
+Number2 folder contains one sample of each character classes(used along with hyperplane2.py)
+
+For more information, refer thesis: http://pradeepmatheshcenlab.appspot.com/ocrthesis.pdf
+
+Homepage: http://pradeepmatheshcenlab.appspot.com/

@@ -1,0 +1,8 @@
+gtruth.py - ground truth generation or validation tool
+hyperplane2.py - L2-norm based classification
+createb.py - Blob extractor based on bounding box information given by tesseract
+translit2.sh - handy way to decode transliterated tamil character classes in OCR (used with groundtruth
+file)
+
+Note:
+The term hyperplane2 to name hyperplane2.py is a misnomer, so please ignore it. 

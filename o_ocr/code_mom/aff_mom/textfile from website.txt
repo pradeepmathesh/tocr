@@ -1,0 +1,45 @@
+Affine moment invariants
+
+    * readinv.m - reading of txt-files with invariants to MATLAB
+    * cafmi.m - computation of the affine moment invariants from the moments
+
+Affine moment invariants are evaluted by this way (in MATLAB notation):
+f=readinv('afinv12indep.txt'); % reading of the invariants from a proper file
+for i=1:p; % The loop over all images to be recognized
+mm=cm(images(:,:,i),12); % moment computation
+v(i,:)=cafmi(f,mm); % invariant evaluation
+end
+
+Note: The magnitude normalization to order and the magnitude normalization to degree can be deleted from the file "cafmi.m", but then, it should be replaced by the normalization to the standard deviation of the values over all training set (p must be sufficiently high):
+stdinvs=std(v);
+meaninvs=mean(v);
+v=(v-repmat(meaninvs,p,1))./repmat(stdinvs,p,1);
+
+The same is valid for the file "rotmi.m", too.
+
+The txt-files with the affine moment invariants for the MATLAB computation
+
+    * afinv12irred.txt - all irreducible invariants up to the weight 12
+    * afinv12indep.txt - all independent invariants up to the weight 12
+    * afinvs4_19.txt - all irreducible invariants up to the order 4
+    * afinv5hom30.txt - all homogeneous invariants of the 5th order
+
+If some invariants in the txt-files are not necessary for your application, you can delete them by a text editor.
+Invariants in these files have following format:
+
+At the beginning, there is an empty line, then a line with 3 numbers:
+
+w n r
+
+where w is weight of the invariant,
+n is the number of terms and
+r is the degree of the invariant.
+
+Then a matrix (2r+1) x n follows, the first number is coefficient and others are indices of the moments, e.g. the line 6 1 1 0 2 0 2 3 0 2 1 means
+6 m11 m02 m02 m30 m21
+
+Normalized moments:
+
+    * afinnorm.m - computation of the affinely normalized moments
+    * afint.m - computation of the affine transform with given parameters
+rks in the file "rotmi.m", you obtain a list of invariants used. 

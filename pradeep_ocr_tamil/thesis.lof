@@ -1,0 +1,23 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Architecture of a typical OCR system}}{4}{figure.2.1}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Sample image that is fed to tesseract}}{6}{figure.3.1}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Sample gray scale blob}}{6}{figure.3.2}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Sample binary scale blob}}{6}{figure.3.3}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Sample of improper segmentation}}{7}{figure.3.4}
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Evolution of contour, courtesy of Bresson}}{10}{figure.4.1}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Segmentation using ACM}}{10}{figure.4.2}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Architecture of tesseract engine, courtesy of Ray Smith}}{20}{figure.6.1}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Tesseract engine in interactive mode}}{22}{figure.6.2}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Sample output after preprocessing}}{26}{figure.6.3}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Ground truth generation}}{26}{figure.6.4}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Model presented to the recognition engine}}{27}{figure.6.5}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Model generation uses one instance of each of these class}}{28}{figure.6.6}
+\contentsline {figure}{\numberline {6.7}{\ignorespaces Some sample elusive contour from dataset}}{29}{figure.6.7}
+\contentsline {figure}{\numberline {6.8}{\ignorespaces Sample confusion matrix}}{30}{figure.6.8}
+\addvspace {10\p@ }
+\addvspace {10\p@ }

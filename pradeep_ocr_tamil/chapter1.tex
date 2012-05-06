@@ -1,0 +1,42 @@
+\chapter{Introduction}
+
+\section{Optical character recognition system}
+OCR system is a software which recognizes text in a document image. It does document 
+image analysis in order to recognize a piece of text. Some of the applications of OCR system is
+discussed in the last chapter. It involves the area of image processing and pattern recognition.
+It also proves to be a great aid to the machine translation system by
+capturing the raw corpus from multilingual books\cite{praveen}. It can also extract text from
+videos by doing document image analysis on the relevant frames in the video.
+
+\section{Challenges}
+The main challenge lies in tackling touching characters and 
+recognizing characters which are almost similar. 
+\section{Tamil Character Set}
+Tamil is a Dravidian language spoken in Tamil Nadu, India, North eastern Sri Lanka, Singapore and  Malaysia. The language has 31 basic alphabets (12 vowels, 18 consonants and a special consonant) and the written script is comprises of 247 characters. However for character recognition there are only 155 classes which can be refered in \ref{CSET} including grantha characters. But this number excludes Tamil numerals which are uncommon.
+
+
+\section{Previous work}
+Previously Dr V. Krishnamoorthy, proposed a OCR system for Tamil language. 
+The author claims 99\% accuracy on printed text\cite{krish}. Later, Anbumani Subramanian and Bhadri Kubendran et.al proposed a system\cite{anbu}. Again, it also claims better result. Both of the system doesn't perform page layout analysis and the system is no longer maintained. These systems uses moment based feature extraction technique. 
+\paragraph{}
+In 2005, \cite{seetha} proposed a system which did 
+a comparative analysis of ANN and SVM for learning and classification. The SVM based classifier claims an accuracy of 66\% for single font. They used the following 
+visual features which is based on character glyph.
+\begin{itemize}
+\item Height of the character
+\item  Width
+of the character
+\item Numbers of horizontal lines
+\item Numbers of vertical lines
+\item Numbers of circles
+\item Numbers of horizontally oriented arcs
+\item Numbers of vertically oriented arcs
+\item Centroid of
+the image
+\item Position of the various features
+\item Pixels in the various regions
+\end{itemize}
+
+
+In 2008,\cite{jaga1} proposed a OCR system which augments the power of ANN, SVM and HMM by fusing all of these together. 
+In 2009, \cite{jaga2} did a comparative study of same recognition method. This system again uses character glyph based features. However, the author discussed recognition results only for selected number of character classes and the accuracy varies between 88\% to 99\%.

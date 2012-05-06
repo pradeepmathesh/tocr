@@ -1,0 +1,186 @@
+%&program=xetex
+%&encoding=UTF-8 Unicode
+
+% thesis.tex
+
+\documentclass[12pt]{report}
+\usepackage{pdfpages}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{utepcsthesis}
+\usepackage{graphics}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[top=1.0in,bottom=1.0in,left=1.25in,right=1.25in]{geometry}
+\usepackage{longtable}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{listings}
+\usetikzlibrary{shadows,arrows}
+%\usepackage[T1]{fontenc}
+%     \usepackage{txfonts}
+\usepackage{mathptmx}
+
+
+% \usepackage{marvosym}
+% \usepackage{fontspec}   %load fonts
+% \usepackage{url,parskip}   %formatting
+% \usepackage{xunicode,xltxtra}  %other packages for XeTeX
+% \usepackage{titlesec}
+\usepackage{amsmath,amsfonts}
+
+
+
+
+
+
+% \font\title="Lohit Tamil:script=taml" at 22pt
+
+
+% \renewcommand{\encodingdefault}{T1}
+% \renewcommand{\rmdefault}{tnr}
+% \usepackage{mathptmx}
+\usepackage{hyperref}
+% \usepackage[LY1]{fontenc}
+% \usepackage{timesnewx} 
+\begin{document}
+% \rmfamily{Time}
+% 		%%%%%%%%%%%%%%%%%%%%%
+% 		% Preliminary Pages %
+% 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 		% Set the table of contents depth (tocdepth) to the least significant section
+% 		% type that you want to be included in the table of contents using this key:
+% 		%   1 = section
+% 		%   2 = subsection
+% 		%   3 = subsubsection
+% 		%   4 = paragraph
+% 		\setcounter{tocdepth}{2}
+
+% 		% The graduate school requires all caps for the title, and if
+% 		% the title contains more than one line, the lines should be
+% 		% of decreasing length, giving the look of an inverted pyramid.
+
+% 		\title{CS 491\\[0.4in]Optical Character Recognition (OCR) for Tamil Language}
+% 		% If the title is more than one line, separate the lines with \\[1pc]
+% 		% as shown below:
+% 		%\title{THIS IS THE VERY FIRST LINE\\[1pc]
+% 		%       THIS IS THE SECOND LINE\\[1pc]
+% 		%       THIS IS THE THIRD ONE}
+
+% 		% The author should also be all caps
+% 		\author{PRADEEP M,          CB.EN.U4CSE08131}
+% 		% Uncomment to put degrees on title page
+% 		%\AuthorDegrees{B.S.}
+% 		\date{November 2011}
+% 		\DeptName{Computer science and Engineering, School of Engineering, Amrita Vishwa Vidyapeetham}
+
+% 		\CommitteeChair{Shanmuga Velayudam, Chair, Ph.D.}
+% 		\CommitteeMembers{Hema P Menon, M.Tech.}
+% 				 {Praveen Krishnan, M.Tech.}
+% 		%Uncomment if you have a fourth member on your committee
+% 		%\AdditionalMember{Additional Member's name}
+
+% 		\GradSchoolDean{P N Kumar, MBA.}
+
+% 		%Produce the signature page
+% 		\makesigpage
+
+% 		%Uncomment if you want a copyright page
+% 		\begin{CenteredPage}
+% 		\copyright Copyleft\\[0.2in]
+% 		by\\[0.2in]
+% 		Pradeep M\\[0.2in]
+% 		2011
+% 		\end{CenteredPage}
+
+% 		%Delete if you don't want a dedication
+% 		\begin{CenteredPage}
+% 		{\it to the\\[0.2in]
+% 		world\\[0.2in]
+% 		}
+% 		\end{CenteredPage}
+
+%\maketitlepage
+% \include{cover}   
+
+
+% \usepackage{pdfpages}
+% \begin{document}
+% \includepdf[pages=-]{1.pdf}
+% \includepdf[pages=-]{2.pdf}
+% \includepdf[pages=-]{3.pdf}
+% \end{document}
+% \includepdf[pages={1}]{myfile.pdf}
+%     \documentclass{article}
+%     \usepackage{pdfpages}
+%     \begin{document}
+%     \includepdfmerge{file1.pdf,-}
+%     \includepdfmerge{file2.pdf,1-3}
+%     \end{document}
+\include{title}   
+ \include{bona}   
+%  \include{decl}   
+\include{acknowl}       % Acknowledgements, optional
+%\include{preface}       % Preface, optional
+\include{abstract}      % Abstract, optional, but strongly recommended
+
+\tableofcontents        % Generate Table of Contents
+
+% If you a list of tables, uncomment the next line.
+% It is required if the document contains three or more tables
+\listoffigures
+\listoftables
+ \include{abb} 
+% If you use a list of figures, uncomment the next line
+% It is required if the document contains three or more figures
+
+
+
+% Here would go optional list of illustrations, maps, slides
+
+%%%%%%%%
+% Body %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Start arabic numbering, bottom of first page and top right of subsequent pages
+\StartBody
+\begin{spacing}{1.5}
+\include{chapter1}         % Introductory Chapter
+\include{chapter2}         % Chapter 2
+\include{chapter3}         % Chapter 3
+\include{chapter4}         % Chapter 4
+\include{chapter5}         % Chapter 5
+\include{chapter6}         % Chapter 6
+\include{chapter7}         % Chapter 7
+\include{ref}
+\include{app}
+\end{spacing}
+                        % example of figs and tables and inclusion of pdf.
+
+%%%%%%%%%%%%%%%%%%%%
+% Concluding Pages %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Bibliography or References, REQUIRED
+
+% If using bibtex, create or modify the refs.bib file
+% and use (uncomment) the following three lines.
+%\bibliographystyle{plain}     %You may prefer \bibliographystyle{alpha}
+%\addcontentsline{toc}{chapter}{\bibname}
+%\bibliography{refs}
+
+% If using the ``thereference'' environment instead, modify the ref.tex file
+% and use the following line
+
+
+% If including appendices, uncomment the following lines,
+% adding more includes if needed.
+%\StartAppendix
+%\include{AppendixA}         % Example of how to include an appendix
+
+%\include{vitae}         % Curriculum Vitae      REQUIRED
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

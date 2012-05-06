@@ -1,0 +1,46 @@
+\ProvidesPackage{beamerouterthememyfoot}
+
+% modified by colin
+
+% Copyright 2003 by Till Tantau <tantau@users.sourceforge.net>
+%
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\mode<presentation>
+
+%\setbeamercolor*{author in foot}{parent=palette tertiary}
+%\setbeamercolor*{title in foot}{parent=palette secondary}
+%\setbeamercolor*{framenum in foot}{parent=palette primary}
+
+\setbeamercolor*{author in foot}{parent=palette primary}
+%\setbeamercolor*{title in foot}{parent=palette secondary}
+\setbeamercolor*{framenum in foot}{parent=palette primary}
+
+%\setbeamercolor*{author in foot}{white}
+%\setbeamercolor*{title in foot}{white}
+%\setbeamercolor*{framenum in foot}{white}
+
+\defbeamertemplate*{footline}{colinsfoot theme}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.666667\paperwidth,ht=2.25ex,dp=1ex,left]{author in foot}%
+    \hspace*{2ex}%
+    \usebeamerfont{author in head/foot}\insertshorttitle~: \insertshortauthor~(\insertshortinstitute)
+  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+%    \usebeamerfont{title in foot}\insertshorttitle
+%  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{framenum in foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+
+  \vskip0pt%
+}
+
+
+%\setbeamersize{text margin left=1em,text margin right=1em}
+
+\mode
+<all>

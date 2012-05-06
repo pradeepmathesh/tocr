@@ -1,0 +1,238 @@
+\chapter{Training and classification}
+
+\section{Support Vector Machine}
+
+Support Vector Machine\cite{wik2} is machine learning technique. It is a form of supervised learning.
+It is used for classifying an object and for regression analysis. It takes a point in $R^n$ and identifies
+to which of the two classes this point belongs. Initially a model is presented to SVM classifier. The model
+dictates to which class a sample input belongs. In technical parlance, SVM classifier constructs a
+hyperplane to separate the classes and later labels the new point to one of the classes and this type of 
+classifier is called linear classifier. The maximum-margin hyperplane is the hyperplane which maximizes the distance between points of two different classes. Let D denote the training data and a set of points
+of the form 
+\begin{equation}
+D = \{(x_i,y_i) |x_i \in R^p,y \in \{-1,1\} \}^n
+\end{equation}
+where $y_i$ indicates whether the point $x_i$ belongs to class -1 or 1. Our objective is find the 
+maximum-margin hyperplane which separates class -1 from class 1. The sample on the 
+margin is refered as support vector. Given
+% \begin{equation}
+% \end{equation}
+
+\begin{equation}
+    \mathbf{w}\cdot\mathbf{x} - b=1\, 
+\end{equation}
+and 
+
+\begin{equation}
+    \mathbf{w}\cdot\mathbf{x} - b=-1.\, 
+\end{equation}
+
+our objective is to choose w and b such that distance between the hyperplanes which separate one 
+class from the other is maximized. The distance between the hyperplanes is given by $\frac{2}{\|w\|}$.
+So we want to maximize $\|w\|$. To prevent outliers we introduce the following constrains.
+
+\begin{equation}
+\mathbf{w}\cdot\mathbf{x}_i - b \ge 1\qquad\text{ for }\mathbf{x}_i 
+\end{equation}
+
+of first class
+
+\begin{equation}
+\mathbf{w}\cdot\mathbf{x}_i - b \le -1\qquad\text{ for }\mathbf{x}_i 
+\end{equation}
+
+of the second class and which is same as 
+
+\begin{equation}
+    y_i(\mathbf{w}\cdot\mathbf{x}_i - b) \ge 1, \quad \text{ for all } 1 \le i \le n
+\end{equation}
+
+which in turn can be formulated as follows.
+
+Minimize $\|w\|$ subject to 
+
+\begin{equation}
+    y_i(\mathbf{w}\cdot\mathbf{x_i} - b) \ge 1
+\end{equation}
+
+
+\subsection{Primal form}
+It is difficult to solve the preceding optimization problem. It is because it involves L2-norm which 
+is computationally intensive. But it can be altered as $\frac{1}{2}\|\mathbf{w}\|^2$ by replacing $\|w\|$
+without changing the solution. This is Quadratic programming optimization problem. More formally,
+Minimize 
+\begin{equation}
+    \frac{1}{2}\|\mathbf{w}\|^2 
+\end{equation}
+subject to
+
+\begin{equation}
+    y_i(\mathbf{w}\cdot\mathbf{x_i} - b) \ge 1
+    \end{equation}
+    
+The above constraint can be expressed as follows
+\begin{equation}
+    \min_{\mathbf{w},b } \max_{\boldsymbol{\alpha} } \left\{ \frac{1}{2}\|\mathbf{w}\|^2 - \sum_{i=1}^{n}{\alpha_i[y_i(\mathbf{w}\cdot \mathbf{x_i} - b)-1]} \right\} 
+    \end{equation}
+    
+    Here we are locating the saddle point. Now solution for the above QP is given by, 
+    
+\begin{equation}
+\mathbf{w} = \sum_{i=1}^n{\alpha_i y_i\mathbf{x_i}} 
+\end{equation}
+and 
+\begin{equation}
+    b = \frac{1}{N_{SV}} \sum_{i=1}^{N_{SV}}{(\mathbf{w}\cdot\mathbf{x_i} - y_i)} 
+\end{equation}
+where $N_{sv}$ is the number of support vectors.
+
+\subsection{Dual form}
+
+The objective in the dual form reveals that classification task is 
+only a function of support vectors. After substituting for $\|w\|$, the SVM optimization problem becomes
+as follows.
+Maximize $\alpha_i$
+subject to
+\begin{equation}
+    \tilde{L}(\mathbf{\alpha})=\sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i, j} \alpha_i \alpha_j y_i y_j \mathbf{x}_i^T \mathbf{x}_j=\sum_{i=1}^n \alpha_i - \frac{1}{2}\sum_{i, j} \alpha_i \alpha_j y_i y_j k(\mathbf{x}_i, \mathbf{x}_j) 
+\end{equation}
+
+$\alpha_i \geq 0,\, $
+
+Note that the kernel function here is defined as 
+$k(\mathbf{x}_i,\mathbf{x}_j)=\mathbf{x}_i\cdot\mathbf{x}_j$.
+    
+\subsection{Soft margin}
+If there exists no hyperplane to separate two classes, then \emph{soft margin} introduces slack 
+variable $\xi_i$  which measures degree of misclassification of the datum $x_i$ as follows. 
+\begin{equation}
+y_i(wx_i-b) \ge 1 - \xi_i, 1 \le i \le n
+\end{equation}
+
+Now the maximizing objective function penalizes the non-zero $\xi_i$ which is a trade-off between
+a large margin between hyperplanes and the error introduced. For linear penalty function, the
+optimization problem becomes as
+% \underset{C}{\operatorname{min}} \Bigg \{ \}\
+
+\begin{equation}
+    \min_{\mathbf{w},\mathbf{\xi}, b } \left\{\frac{1}{2} \|\mathbf{w}\|^2 + C \sum_{i=1}^n \xi_i \right\} 
+\end{equation}
+    subject to   
+\begin{equation}
+y_i(\mathbf{w}\cdot\mathbf{x_i} - b) \ge 1 - \xi_i, ~~~~\xi_i \ge 0 . 
+\end{equation}
+
+The above constraint with the objective of minimizing $\|w\|$ can be solved by using Lagrange multipliers as
+follows.
+\begin{equation}
+    \min_{\mathbf{w},\mathbf{\xi}, b } \max_{\boldsymbol{\alpha},\boldsymbol{\beta} } \left \{ \frac{1}{2}\|\mathbf{w}\|^2 +C \sum_{i=1}^n \xi_i - \sum_{i=1}^{n}{\alpha_i[y_i(\mathbf{w}\cdot \mathbf{x_i} - b) -1 + \xi_i]} - \sum_{i=1}^{n} \beta_i \xi_i \right \} 
+\end{equation}
+with $\alpha_i,\beta_i \ge 0$
+
+
+\subsection{Non-linear classification}
+ Non-linear classification makes SVM, an extension of perceptron. Originally vapnik proposed the linear
+ classifier and later it was extended for non-linear classification by applying kernel trick to  maximum-margin
+ hyperplane. In this case, dot product is replaced by non-linear kernel function. This makes it possible
+ to represent the maximum-margin hyperplane in a transformed feature space. If the kernel function 
+ is Gaussian radial basis function, the corresponding feature space is infinite dimensional Hilbert space. Some common kernel functions used are as follows.
+        \begin{itemize}
+\item Gaussian Radial Basis Function
+\item Hyperbolic tangent
+\item Polynomial (homogeneous)
+\item Polynomial (inhomogeneous)
+        \end{itemize}
+	SVM classifiers can be considered as form of Tikhonov regularization. Its special property 
+	is reducing error and increasing the margin of separation of different classes.
+	
+	\paragraph{}
+The SVM classifier is realized by solving the optimization problem formulated above. Generally Platts's
+Sequential Minimal Optimization (SMO) algorithm is used. It breaks down the problem into 2D 
+subproblem. The other approach is based on interior point method which makes use of Newton iteration 
+to solve Kuhn-Tucker conditions of primal and dual problem. But this method solves the problem as 
+a whole. To avoid solving large kernel matrix, the matrix is rank approximated. 
+\subsection{Multiclass SVM}
+Multiclass SVM aims to label more than two classes. Generally multiclass problem is reduced to binary 
+classification problem. It is based on 
+\begin{itemize}
+\item one-versus-all
+\item one-versus-one
+\end{itemize}
+Classification of new instances for one-versus-all case is done by a winner-takes-all strategy, in which the classifier with the highest output function assigns the class. For the one-versus-one approach, classification is done by a max-wins voting strategy, in which every classifier assigns the instance to one of the two classes, then the vote for the assigned class is increased by one vote, and finally the class with most votes determines the instance classification.
+\subsection{Parameter selection} 
+Parameter selection is important because the effective of classifier is dictated by the kernel and 
+its parameter($\gamma$) and the soft margin(C)
+Parameter selection is carried out by performing grid-search with exponentially growing sequences of C and $\gamma$. Choices of parameter is checked by cross validation.
+\section{Implementation}
+The extracted feature vector is normalized and labelled. It is then passed to the svm learner for generation of a model.
+Finally the svm classifier is used to classify the new character based on the model that is created. 
+We used a multiclass svm called SVM\_struct.
+We took at-least ten samples from each class. Totally three classes were taken. SVM\_struct is available at \url{http://download.joachims.org/svm_multiclass/examples/}.
+However, SVM\_struct cannot take advantage of the core. 
+So we used our feature 
+extraction technique with MSVM\cite{lauer} and it significantly reduced training time.
+In the case of MSVM, the trainmsvm tool creates a model based on the extracted features. Later, based on the model, predsvm tool classifies the blobs.
+\section{Hierarchal classification}
+We inspected the use of hierarchal classification for improving the accuracy of recognition. 
+The discriminating feature is number of points of the contour. We selected the least confusing classes.
+Some of them are as follows.
+
+\begin{table}[!t]\center
+  \begin{tabular}{ccc}
+\toprule
+ \textbf{S.No} & \textbf{Class}  & \textbf{Confusing class}  \\
+\midrule
+1 &     tu & rru \\  
+2 &     vi & li \\  
+3 &     va & ya \\  
+4 &     wa & ta \\  
+5 &     va & na \\  
+6 &     va & la \\  
+7 &     ku & cu \\  
+8 &     mu & zhu \\  
+9 &     ku & ru \\  
+10 &    pa & pu \\  
+11 &    wi & rri \\  
+12 &    ki & ci \\  
+13 &    ka & ca \\  
+\bottomrule
+\end{tabular}
+  \caption{Samples of least confusing class}\label{LCONF}
+  \end{table}
+  
+  
+\begin{table}[!t]\center
+  \begin{tabular}{ccc}
+\toprule
+\textbf{Class}  & \textbf{Minimum} & \textbf{Maximum} \\
+\midrule
+ku & 263 & 294 \\  
+ru & 258 & 280 \\  
+tu & 256 & 282 \\  
+rru & 243 & 262 \\  
+vi & 227 & 288 \\  
+li & 244 & 259 \\  
+ya & 186 & 210 \\  
+na & 239 & 287 \\  
+ta & 246 & 256 \\  
+va & 245 & 264 \\  
+wa & 212 & 231 \\  
+la & 239 & 272 \\  
+ku & 263 & 294 \\  
+cu & 204 & 224 \\  
+mu & 228 & 267 \\  
+zhu & 244 & 286 \\  
+ru & 258 & 280 \\  
+pa & 146 & 166 \\  
+pu & 149 & 189 \\  
+wi & 249 & 268 \\  
+rri & 194 & 268 \\  
+ki & 270 & 300 \\  
+ci & 248 & 276 \\  
+ka & 212 & 225 \\  
+ca & 146 & 200 \\  
+
+\bottomrule
+\end{tabular}
+  \caption{Min and max no. of contour points for the least confusing classes}\label{MMAX}
+\end{table}

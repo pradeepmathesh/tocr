@@ -1,0 +1,62 @@
+\chapter{System Architecture}
+\section{Chapter Organisation}
+Preprocessing is discussed in the next chapter. Feature extraction, classification and recognition are discussed in the successive chapters. Finally we discuss the results and tools used along with our implementation of recognition engine based on supervised and unsupervised learning.
+\section{Architecture}
+System architecture shows the steps involved in the analysis of document image.
+The architecture of OCR system comprises of six stages and is shown in \ref{OCRA}.
+
+\tikzstyle{materia}=[draw, fill=blue!20, text width=6.0em, text centered,
+  minimum height=1.5em,drop shadow]
+\tikzstyle{practica} = [materia, text width=18em, minimum width=10em,
+  minimum height=3em, rounded corners, drop shadow]
+
+\tikzstyle{materiai}=[draw, fill=green!20, text width=6.0em, text centered,
+  minimum height=1.5em,drop shadow]
+\tikzstyle{practicai} = [materiai, text width=18em, minimum width=10em,
+  minimum height=3em, rounded corners, drop shadow]
+
+\tikzstyle{line} = [draw, thick, color=black!50, -latex']
+\newcommand{\practica}[2]{node (p#1) [practica]
+  {Step #1\\{\large\textit{#2}}}}
+
+\newcommand{\practicai}[2]{node (p#1) [practicai]
+  {Step #1\\{\large\textit{#2}}}}
+
+  \begin{figure}\centering
+\begin{tikzpicture}[scale=0.7,transform shape]
+ 
+  % Draw diagram elements
+  \path \practica {1}{Page layout analysis};
+  \path (p1.south)+(0.0,-2) \practica{2}{Noise removal and binarization};
+  \path (p1.south)+(0.0,-4) \practica{3}{Skew correction};
+  \path (p1.south)+(0.0,-6) \practica{4}{Segmentation};
+  \path (p1.south)+(0.0,-8) \practicai{5}{Classification};
+  \path (p1.south)+(0.0,-10) \practicai{6}{Recognition};
+  \path (p1.south)+(0.0,-12) \practica{7}{Format reconstruction};
+    \path [line] (p1.south) -- node [above] {} (p2) ;
+    \path [line] (p2.south) -- node [above] {} (p3) ;
+    \path [line] (p3.south) -- node [above] {} (p4) ;
+    \path [line] (p4.south) -- node [above] {} (p5) ;
+    \path [line] (p5.south) -- node [above] {} (p6) ;
+    \path [line] (p6.south) -- node [above] {} (p7) ;
+%   \path (p3.south)+(5.0,-1.0) \practica{4}{Amplificador para HF};
+  \end{tikzpicture}
+    \caption{Architecture of a typical OCR system}\label{OCRA}
+\end{figure}
+
+% \section{Preprocessing}
+% Preprocessing is carried out by the tesseract engine. It gives bounding box information. 
+% Later, it used blob extraction and preprocessing tool. 
+
+\section{Deliverables}
+\subsection{RPT}
+\begin{itemize}
+\item Ground truth generating tool - train.py 
+\item Blob extraction and preprocessing - createb.py
+\item Recognition engine - hyperplane2.py - our unsupervised classifier
+\item Result analyzer - confuse.sh 
+\end{itemize}
+\subsection{SVMTC}
+\begin{itemize}
+\item Feature extractor - roger.m 
+\end{itemize}

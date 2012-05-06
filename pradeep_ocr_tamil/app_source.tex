@@ -1,0 +1,475 @@
+\chapter{Appendix}
+
+\section{SOURCE CODE}
+
+
+\subsection{Preprocessing tool}
+\begin{verbatim}
+import Image
+import string
+import subprocess
+import os
+IMAGES = 1
+def roll(image, delta):
+"Roll an image sideways"
+xsize, ysize = image.size
+delta = delta % xsize
+if delta == 0: return image
+part1 = image.crop((0, 0, delta, ysize))
+part2 = image.crop((delta, 0, xsize, ysize))
+image.paste(part2, (0, 0, xsize-delta, ysize))
+image.paste(part1, (xsize-delta, 0, xsize, ysize))
+return image
+def createblobs():
+
+for i in xrange(IMAGES):
+
+filename = "testimages/test"+str(i+1)+".tif" #Tamil
+im1 = Image.open(filename)
+
+x,y = im1.size
+
+
+
+os.system('tesseract '+filename+' testimages batch.nochop makebox')
+os.system('cat testimages.box | cut -d " " -f2-5 &> tuple')
+f = open("tuple",'r')
+boxList = f.readlines()
+f.close()
+
+
+
+
+
+
+count = 1
+for box in boxList:
+tmp = box.rstrip()
+parts = string.split(tmp)
+
+x0 = int(parts[0])
+y0 = y - int(parts[3])
+x1 = int(parts[2])
+y1 = y - int(parts[1])
+
+boxer = (x0,y0,x1,y1)
+region = im1.crop(boxer)
+size = (x1-x0,y1-y0)
+
+im2 = Image.new("RGB",size)
+im2.paste(region,(0,0)) #source --> destination(0,0)
+filename = "test"+str(i+1)+"/"+str(count)+".png"
+
+
+im2.save(filename, "PNG")
+count = count + 1
+
+def makedirs():
+for i in xrange(IMAGES):
+os.system('rm -rf '+' test'+str(i+1))
+for i in xrange(IMAGES):
+os.system('mkdir -p '+'test'+str(i+1))
+def cleanup():
+os.system('rm -f blobs/*')
+
+
+
+
+
+
+makedirs()
+cleanup()
+print 'creating blobs'
+createblobs()
+
+\end{verbatim}
+
+
+\subsection{Ground truth generating tool}
+\begin{verbatim}
+#coding=UTF-8
+import pygtk
+pygtk.require('2.0')
+import gtk
+import codecs
+import os
+class Train:
+def close_application(self, widget, event, data=None):
+l = len(self.file)
+tim = l - self.count
+for i in xrange(tim):
+x = self.count
+self.fout.write(self.file[x])
+self.count = self.count + 1
+self.fin.close()
+self.fout.close()
+os.system('mv output.report.tmp1 '+ self.source)
+gtk.main_quit()
+return False
+
+def button_clicked(self, widget, data=None):
+
+x = self.count
+self.count = self.count + 1
+if self.count > self.numIm:
+self.file.close()
+gtk.main_quit()
+else:
+w = self.text.get_text()
+if w != '':
+
+chop = self.file[x].split('\n')
+st = chop[0] + ' ' + w
+self.fout.write(st+'\n')
+else:
+self.fout.write(self.file[x])
+self.label.set_text(self.file[self.count]) # turn off label temporarily
+
+self.image.set_from_file(self.dirprefix+str(self.count+1)+'.png')
+
+self.text.set_text('')
+self.window.set_title(str(self.count+1)+'.png')
+
+
+
+def setfocus(self,widget,event):
+key = event.keyval
+if key == gtk.keysyms.Left or key == gtk.keysyms.Return:
+
+self.button.grab_focus()
+
+def __init__(self):
+
+
+
+
+self.dirprefix='/home/pradeep/Desktop/project/dataset/orderrnbin/'
+self.dirprefix='/home/pradeep/Desktop/project/dataset/tam/test16_prop_bin/'
+self.dirprefix2='/home/pradeep/Desktop/project/dataset/'
+
+self.count = 0
+
+self.source = self.dirprefix2+'map_16_4201'
+self.fin = codecs.open(self.source,encoding='utf-8', mode='r')
+self.fout = codecs.open('output.report.tmp1',encoding='utf-8', mode='w+')
+self.file = list(self.fin)
+if self.count > 0:
+for i in xrange(self.count):
+self.fout.write(self.file[i])
+img = os.listdir(self.dirprefix)
+self.numIm = len(img)
+del img
+self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+self.window.set_title(str(self.count+1)+'.png')
+self.window.connect("delete_event", self.close_application)
+self.window.set_border_width(10)
+self.window.set_position(gtk.WIN_POS_CENTER)
+
+self.hbox = gtk.HBox()
+x = self.file[self.count]
+self.label = gtk.Label(x)
+self.hbox.pack_start(self.label)
+self.label.show()
+self.window.add(self.hbox)
+self.image = gtk.Image()
+
+self.image.set_from_file(self.dirprefix+str(self.count+1)+".png")
+self.image.show()
+
+self.button = gtk.Button()
+self.button.add(self.image)
+self.button.connect("clicked", self.button_clicked, "2")
+self.button.show()
+self.hbox.pack_start(self.button)
+self.text = gtk.Entry()
+self.text.set_width_chars(4)
+self.hbox.pack_end(self.text)
+
+self.text.show()
+self.hbox.show()
+self.window.connect("key-press-event", self.setfocus)
+self.window.set_default_size(450,40)
+self.window.show()
+def main():
+gtk.main()
+return 0
+File: /home/pradeep/class/work/thesis/imp.py Page 4 of 5
+if __name__ == "__main__":
+Train()
+main()
+\end{verbatim}
+
+
+\subsection{Recognition engine}
+\begin{verbatim}
+#coding=UTF-8
+import os
+import math
+import numpy as np
+import Image
+import codecs
+import time
+
+modeldirprefix='/home/pradeep/Desktop/project/dataset/Number2/';
+
+
+datadirprefix='/home/pradeep/class/poems/leisure/project/dataset/tam/test16_prop_bin/';
+
+start = time.time()
+dict = {1:'ள', 2:'கி', 3:'ட', 4:'ளி', 5:'ப', 6:'க', 7:'ற்', 8:'ை', 9:'ல்', 11:'த', 12:'ே',14:'கு', 15:'ெ', 16:'இ', 17:'ர', 18:'று', 20:'ம்', 21:'எ', 22:'ன்', 25:'க்', 26:'ஃ', 27:'அ', 33:'ஸ்', 34:'ா', 36:'ழு', 41:'ரு', 42:'வி', 43:'த்', 45:'ஞ', 47:'ரி', 49:'லு', 56:'வ', 57:'ட்', 58:'ன', 64:'டு', 66:'றி', 67:'ல', 72:'ப்', 73:'ச', 74:'ம', 76:'ஸ', 77:'ர்', 84:'ஒ', 89:'ய', 91:'யி', 92:'ந', 96:'ஆ', 100:'ள்', 108:'ற', 111:'னு', 114:'வு', 125:'பி', 143:'உ', 164:'பு', 168:'ச்', 178:'ழி', 205:'தி', 209:'து', 211:'கூ', 213:'மு', 225:'நி', 229:'ந்', 234:'ஜி', 251:'ய்', 263:'ங்', 288:'ண்', 305:'டி', 352:'ளு', 388:'சி', 438:'யூ', 498:'ஏ', 520:'ழ', 572:'மி', 607:'ஸி', 609:'நீ', 610:'ழ்', 676:'ஜ',883:'வ்', 936:'ஷி', 939:'சூ', 973:'நூ', 1215:'யு', 1256:'மூ', 1287:'ஈ', 1369:'சு', 1486:'னி', 1712:'டீ', 1735:'ஹ', 1892:'ஐ', 2047:'மீ', 2100:'ஷ', 2140:'வீ', 2216:'ஜ்', 2407:'லி', 3333:'ஞ்', 3377:'தீ', 3381:'கீ', 3668:'ண'}
+im_dim = 64
+M = im_dim*im_dim; # size of image vector, i.e., number of pixels
+d = 1000
+
+charidx = os.listdir(modeldirprefix)
+testidx = os.listdir(datadirprefix)
+
+
+
+numIm = len(charidx)
+numfiles = len(testidx)
+DATA = np.mat(np.zeros((M,numIm),float))
+j = 0
+
+for i in charidx:
+t = '%s%s' % (modeldirprefix,i);
+im = Image.open( t ).convert('L')
+im = im.resize((im_dim,im_dim))
+m,n = im.size
+x = np.mat(im)
+DATA[:,j] = x.reshape(M,1) #assign vector to a particular of matrix
+j = j + 1
+
+R = np.random.rand(d,M);# using random matrix
+phi = R*DATA
+con = u''
+fout = codecs.open('/home/pradeep/Desktop/project/dataset/output_test16', encoding='utf-8', mode='w+')
+File: /home/pradeep/class/work/thesis/imp.py Page 5 of 5
+
+for i in xrange(numfiles):
+
+
+
+t = '%s%s.png' % (datadirprefix,str(i+1));
+
+
+im1 = Image.open(t).convert('L') #if not in grayscale
+
+im1 = im1.resize((im_dim,im_dim))
+T_DATA = np.mat(im1)
+T_DATA = T_DATA.reshape(M,1).copy()
+
+test = R*T_DATA
+test_n=test / math.sqrt(test.H*test)
+norm2_phi = np.mat(np.zeros((len(phi),numIm),float))
+
+for j in xrange(numIm):
+norm2 = math.sqrt(phi[:,j].H*phi[:,j])
+norm2_phi[:,j]= phi[:,j]/norm2
+x = norm2_phi.H*test_n
+index = charidx[x.argmax(0)]
+
+split = index.split('.')
+
+
+con = dict[int(split[0])].decode('utf-8')
+fout.write(con+'\n')
+fout.close()
+end = time.time()
+os.system('gedit /home/pradeep/Desktop/project/dataset/output_test16 &')
+print 'It took %s seconds' % (end-start)
+\end{verbatim}
+\subsection{SVMTC}
+\begin{verbatim}
+function omi(omega);
+	tic
+	clc;
+	%omega = 0; %0 means test!...  1 means train!
+	path(path,'feature_extraction');
+	path(path,'vowel_hu_moment');
+	path(path,'aff_mom');
+	path(path,'mom_inv');
+	path(path,'Gabor');
+	%dirprefix='/home/pradeep/Desktop/project/dataset/blob1250/';
+
+	%training data location
+	if(omega == 1)
+	dirprefix='/home/pradeep/Desktop/project/dataset/tam/test16_prop_bin/';
+	%dirprefix='/home/pradeep/Desktop/project/dataset/small/';
+	fout = fopen('/home/pradeep/Desktop/project/dataset/feature_train.txt','w+'); % always overwrite
+	else
+	%testing data location
+	dirprefix='/home/pradeep/Desktop/project/dataset/orderrnbin/';
+	%dirprefix='/home/pradeep/Desktop/project/dataset/small/';
+	fout = fopen('/home/pradeep/Desktop/project/dataset/feature_test.txt','w+'); % always overwrite
+	end
+	xdir = dir(dirprefix);
+	numIm = size(xdir,1);
+	fin=readinv('afinv12indep.txt'); 
+	vstrsp = [];
+	vmw = [];
+	vrings = [];
+	vmaxs_maxpoint = [];
+	% Setting
+	count = 1;
+	ccount = 1;
+	resize_im=32;
+	M = resize_im*resize_im;  % size of image vector, i.e., number of pixels
+	d = 100;   % dim of new feature space
+	DATA = [];
+	dillips_feature = [];
+	humom_feature = [];
+	for i = 1 : numIm
+	%xdir(i).name
+		if(strcmp(xdir(i).name,'.') || strcmp(xdir(i).name,'..'))
+			continue;
+		end
+		MODEL_SMOOTH_IMAGE = 0; % Chan-Vese Model
+
+		maxI = 256; % max image intensity
+
+		t = sprintf('%s%s',dirprefix,xdir(i).name);
+		Img = imread(t);
+		[Ny,Nx,Nc] = size(Img); 
+		if Nc>1; 
+			Img=rgb2gray(Img); 
+		end; % Convert color image to gray-scale image
+	%	Img=imresize(Img, [32 32]); 
+		ModelSeg = MODEL_SMOOTH_IMAGE;
+
+		mu = 1e3; 
+		lambda = mu* 5;
+		cpt_fig = 1; % figure number
+		VecParameters = [Ny; Nx; ModelSeg; lambda; mu; ]; % parameters for active contour function
+		[u,c,h]=active_contour_minimization(Img,VecParameters,cpt_fig); % active contour function credit goes to Xavier bresson, UCLA
+
+		x=c(2,:);
+		L=length(x);
+		count=1;
+		ind=0;
+		y=[];
+		ct = [];
+		while count < L
+			ind=ind+1;
+			y(ind)=x(count);
+			ct(ind) = count;
+			count=count+y(ind)+1;
+		end
+		[l,m] = max(y);
+		w = length(y);
+		if(m == w)
+		  xc = c(1,ct(m)+1:L);
+		  yc = c(2,ct(m)+1:L);
+		else	  
+		  xc = c(1,ct(m)+1:ct(m+1)-1);
+		  yc = c(2,ct(m)+1:ct(m+1)-1);
+		end
+		minx = min(xc);
+		maxx = max(xc);	
+		miny = min(yc);
+		maxy = max(yc);
+		[dum,numContours] = size(y);
+		[maxs_maxpoint,dummy] = max(y);
+		rings = 0;
+		for j = 1:numContours
+			if j ~= numContours
+				txc = c(1,ct(j)+1:ct(j+1)-1);
+				tyc = c(2,ct(j)+1:ct(j+1)-1);
+			else
+				txc = c(1,ct(j)+1:L);
+				tyc = c(2,ct(j)+1:L);
+			end
+			tminx = min(txc);
+			tmaxx = max(txc);	
+			tminy = min(tyc);
+			tmaxy = max(tyc);
+			if tminx > minx  && tmaxx < maxx
+				rings = rings + 1;
+			end 
+		end
+		w = size(y,2);
+		s = xdir(i).name;
+		[strsp dum] = strtok(s,'.');
+
+		strsp = str2num(strsp);
+		vstrsp = [vstrsp strsp];
+		vmw = [vmw w];
+		vrings = [vrings rings];
+		vmaxs_maxpoint = [vmaxs_maxpoint maxs_maxpoint];
+		Img=imresize(Img, [32 32]); 
+		Img = im2double(Img);
+		DATA(:, ccount) = reshape (Img, resize_im*resize_im, 1);%random projection
+		v(ccount,:) = testgabor(Img); % gabor feature
+		mm=cm(Img,12); % moment computation
+		v1(ccount,:)=cafmi(fin,mm); % invariant evaluation
+		% Geometry Invariant Properties based feature  ## credit goes to Dinesh Dillip, IISc 
+		features=feature_extractor_2d(Img);
+		dillips_feature = [dillips_feature features];
+		% Hu's moment based features ## credit goes to Vivek Kwasara, UNC
+		humom = [humoments(Img)]';
+		humom_feature = [humom_feature 	humom];
+		ccount = ccount + 1;
+	end
+
+	%Random Projection ## credit goes to Qinfeng Shi, University of Adelaide
+
+	A = DATA;
+
+	randn('state',200);
+	R = randn(d,M);% using random matrix
+	phi = R*A;
+
+	for j = 1:size(phi,2)
+		norm2 = norm(phi(:,j),2);
+		norm2_phi(:,j)= phi(:,j)./norm2;
+	end
+	if(omega == 1)
+	%else
+		%load feature_train_essence.mat
+	%	fprintf(fout,'%d\n%d\n',numIm-2,555);
+		for i=1:numIm-2
+			fprintf(fout,'%d ',vstrsp(i));
+			fprintf(fout,'%f %f %f ',vmw(i),vrings(i),vmaxs_maxpoint(i));% stored as maxvmw, maxvmaxs_maxpoint,maxrings total number of points,number of points of maximum contour length,number of rings
+			for k=1:d
+				fprintf(fout,'%f ',norm2_phi(k,i));%stored
+			end
+			for j=1:55
+				fprintf(fout,'%f ',dillips_feature(j,i));
+			end
+			for w=1:size(humom,1)
+				fprintf(fout,'%f ',humom_feature(w,i));
+			end
+			for w=1:310
+				fprintf(fout,'%f ',v(i,w));
+			end
+			for w=1:80
+				fprintf(fout,'%f ',v1(i,w));
+			end
+			fprintf(fout,'\n');
+		end
+	else
+		%save('feature_test.mat');
+		for i=1:numIm-2
+			fprintf(fout,'%d ',vstrsp(i));
+			fprintf(fout,'%f %f %f ',vmw(i),vrings(i),vmaxs_maxpoint(i));% stored as maxvmw, maxvmaxs_maxpoint,maxrings total number of points,number of points of maximum contour length,number of rings
+			for k=1:d
+				fprintf(fout,'%f ',norm2_phi(k,i));%stored
+			end
+			for j=1:55
+				fprintf(fout,'%f ',dillips_feature(j,i));
+			end
+			for w=1:size(humom,1)
+				fprintf(fout,'%f ',humom_feature(w,i));
+			end
+			for w=1:310
+				fprintf(fout,'%f ',v(i,w));
+			end
+			for w=1:80
+				fprintf(fout,'%f ',v1(i,w));
+			end
+			fprintf(fout,'\n');
+		end
+	end
+	fclose(fout);
+	toc
+\end{verbatim}

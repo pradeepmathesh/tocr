@@ -1,0 +1,232 @@
+%&program=xetex
+%&encoding=UTF-8 Unicode
+\documentclass[a4paper,10pt]{article}
+
+%A Few Useful Packages
+\usepackage{marvosym}
+\usepackage{fontspec}   %load fonts
+\usepackage{url,parskip}   %formatting
+\usepackage{xunicode,xltxtra}  %other packages for XeTeX
+\usepackage{titlesec}
+\usepackage{amsmath,amsfonts}
+\usepackage{booktabs}
+% \thispagestyle{empty}
+\pagestyle{empty}  
+\font\t="Lohit Tamil:script=taml" at 12pt
+%Graphics - Colors
+\RequirePackage{color,graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+%better formatting of the A4 page
+%\usepackage[big]{layaureo}
+%An alternative to Layaureo can be usepackage{fullpage}
+% \maketitle
+% \thispagestyle{empty}
+% \pagestyle{empty}  
+\usepackage{supertabular}   %for Grades
+\usepackage{titlesec}   %custom section
+
+%Setup hyperref package, and colours for links
+\usepackage{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks, urlcolor=linkcolour, linkcolor=linkcolour}
+
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont[SmallCapsFont = Fontin SmallCaps]{Fontin}
+
+
+\begin{document}
+\begin{table}[!t]\center
+\begin{tabular}{ccc}
+\toprule
+\textbf{Class} & \textbf{Label} & \textbf{Transliteration}  \\
+\midrule
+\t{ அ } & 1 & a \\
+\t{ ஆ } & 2 & A \\
+\t{ இ } & 3 & i \\
+\t{ ஈ } & 4 & I \\
+\t{ உ } & 5 & u \\
+\t{ ஊ } & 6 & U \\
+\t{ எ } & 7 & e \\
+\t{ ஏ } & 8 & E \\
+\t{ ஐ } & 9 & ai \\
+\t{ ஒ } & 10 & o \\
+\t{ ஓ } & 11 & O \\
+\t{ க் } & 12 & k \\
+\t{ ங் } & 13 & nH \\
+\t{ ச் } & 14 & c \\
+\t{ ஞ் } & 15 & ng \\
+\t{ ட் } & 16 & T \\
+\t{ ண் } & 17 & N \\
+\t{ த் } & 18 & t \\
+\t{ ந் } & 19 & w \\
+\t{ ப் } & 20 & p \\
+\t{ ம் } & 21 & m \\
+\t{ ய் } & 22 & y \\
+\t{ ர் } & 23 & r \\
+\t{ ல் } & 24 & l \\
+\t{ வ் } & 25 & v \\
+\t{ ழ் } & 26 & zh \\
+\t{ ள் } & 27 & L \\
+\t{ ற் } & 28 & rr \\
+\t{ ன் } & 29 & n \\
+\t{ க } & 30 & ka \\
+\t{ ங } & 31 & nHa \\
+\t{ ச } & 32 & ca \\
+\t{ ஞ } & 33 & nga \\
+\t{ ட } & 34 & Ta \\
+\t{ ண } & 35 & Na \\
+\t{ த } & 36 & ta \\
+\t{ ந } & 37 & wa \\
+\t{ ப } & 38 & pa \\
+\t{ ம } & 39 & ma \\
+\t{ ய } & 40 & ya \\
+\t{ ர } & 41 & ra \\
+\t{ ல } & 42 & la \\
+\t{ வ } & 43 & va \\
+\t{ ழ } & 44 & zha \\
+\t{ ள } & 45 & La \\
+\t{ ற } & 46 & rra \\
+\t{ ன } & 47 & na \\
+\t{ கி } & 48 & ki \\
+\t{ ஙி } & 49 & nHi \\
+\t{ சி } & 50 & ci \\
+\t{ ஞி } & 51 & ngi \\
+\t{ டி } & 52 & Ti \\
+
+
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!t]\center
+\begin{tabular}{ccc}
+\toprule
+\textbf{Class} & \textbf{Label} & \textbf{Transliteration}  \\
+\midrule
+
+
+\t{ ணி } & 53 & Ni \\
+\t{ தி } & 54 & ti \\
+\t{ நி } & 55 & wi \\
+\t{ பி } & 56 & pi \\
+\t{ மி } & 57 & mi \\
+\t{ யி } & 58 & yi \\
+\t{ ரி } & 59 & ri \\
+\t{ லி } & 60 & li \\
+\t{ வி } & 61 & vi \\
+\t{ ழி } & 62 & zhi \\
+\t{ ளி } & 63 & Li \\
+\t{ றி } & 64 & rri \\
+\t{ னி } & 65 & ni \\
+\t{ கீ } & 66 & kI \\
+\t{ ஙீ } & 67 & nHI \\
+\t{ சீ } & 68 & cI \\
+\t{ ஞீ } & 69 & ngI \\
+\t{ டீ } & 70 & TI \\
+\t{ ணீ } & 71 & NI \\
+\t{ தீ } & 72 & tI \\
+\t{ நீ } & 73 & wI \\
+\t{ பீ } & 74 & pI \\
+\t{ மீ } & 75 & mI \\
+\t{ யீ } & 76 & yI \\
+\t{ ரீ } & 77 & rI \\
+\t{ லீ } & 78 & lI \\
+\t{ வீ } & 79 & vI \\
+\t{ ழீ } & 80 & zhI \\
+\t{ ளீ } & 81 & LI \\
+\t{ றீ } & 82 & rrI \\
+\t{ னீ } & 83 & nI \\
+\t{ கு } & 84 & ku \\
+\t{ ஙு } & 85 & nHu \\
+\t{ சு } & 86 & cu \\
+\t{ ஞு } & 87 & ngu \\
+\t{ டு } & 88 & Tu \\
+\t{ ணு } & 89 & Nu \\
+\t{ து } & 90 & tu \\
+\t{ நு } & 91 & wu \\
+\t{ பு } & 92 & pu \\
+\t{ மு } & 93 & mu \\
+\t{ யு } & 94 & yu \\
+\t{ ரு } & 95 & ru \\
+\t{ லு } & 96 & lu \\
+\t{ வு } & 97 & vu \\
+\t{ ழு } & 98 & zhu \\
+\t{ ளு } & 99 & Lu \\
+\t{ று } & 100 & rru \\
+\t{ னு } & 101 & nu \\
+\t{ கூ } & 102 & kU \\
+\t{ ஙூ } & 103 & nHU \\
+\bottomrule
+\end{tabular}
+\end{table}
+\begin{table}[!t]\center
+\begin{tabular}{ccc}
+\toprule
+\textbf{Class} & \textbf{Label} & \textbf{Transliteration}  \\
+\midrule
+
+\t{ சூ } & 104 & cU \\
+
+\t{ ஞூ } & 105 & ngU \\
+
+
+
+\t{ டூ } & 106 & TU \\
+\t{ ணூ } & 107 & NU \\
+\t{ தூ } & 108 & tU \\
+\t{ நூ } & 109 & wU \\
+\t{ பூ } & 110 & pU \\
+\t{ மூ } & 111 & mU \\
+\t{ யூ } & 112 & yU \\
+\t{ ரூ } & 113 & rU \\
+\t{ லூ } & 114 & lU \\
+\t{ வூ } & 115 & vU \\
+\t{ ழூ } & 116 & zhU \\
+\t{ ளூ } & 117 & LU \\
+\t{ றூ } & 118 & rrU \\
+\t{ னூ } & 119 & nU \\
+\t{ ெ } & 120 & g \\
+\t{ ே } & 121 & G \\
+\t{ ை } & 122 & f \\
+\t{ ஸ்ரீ } & 123 & Sri \\
+\t{ ஜ } & 124 & ja \\
+\t{ ஜி } & 125 & ji \\
+\t{ ஜீ } & 126 & jI \\
+\t{ ஜு } & 127 & ju \\
+\t{ ஜூ } & 128 & jU \\
+\t{ ஜ் } & 129 & j \\
+\t{ ஷ } & 130 & Sha \\
+\t{ ஷி } & 131 & Shi \\
+\t{ ஷீ } & 132 & ShI \\
+\t{ ஷு } & 133 & Shu \\
+\t{ ஷூ } & 134 & ShU \\
+\t{ ஷ் } & 135 & Sh \\
+\t{ ஸ } & 136 & Sa \\
+\t{ ஸி } & 137 & Si \\
+\t{ ஸீ } & 138 & SI \\
+\t{ ஸு } & 139 & Su \\
+\t{ ஸூ } & 140 & SU \\
+\t{ ஸ் } & 141 & S \\
+\t{ ஹ } & 142 & ha \\
+\t{ ஹி } & 143 & hi \\
+\t{ ஹீ } & 144 & hI \\
+\t{ ஹு } & 145 & hu \\
+\t{ ஹூ } & 146 & hU \\
+\t{ ஹ் } & 147 & h \\
+\t{ க்ஷ } & 148 & ksa \\
+\t{ க்ஷி } & 149 & ksi \\
+
+
+
+\t{ க்ஷீ } & 150 & ksI \\
+\t{ க்ஷு } & 151 & ksu \\
+\t{ க்ஷூ } & 152 & ksU \\
+\t{ க்ஷ் } & 153 & ks \\
+\t{ ஃ } & 154 & z \\
+ \t{ ா } & 155 & b \\
+
+
+\bottomrule
+\end{tabular}
+%   \caption{Sample bounding box information for four blobs in a page}\label{BBOX}
+\end{table}
+\end{document}

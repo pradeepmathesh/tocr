@@ -1,0 +1,64 @@
+\BOOKMARK [0][-]{section*.1}{Acknowledgements}{}
+\BOOKMARK [0][-]{section*.6}{Abstract}{}
+\BOOKMARK [0][-]{chapter*.8}{Table of Contents}{}
+\BOOKMARK [0][-]{chapter*.9}{List of Figures}{}
+\BOOKMARK [0][-]{chapter*.10}{List of Tables}{}
+\BOOKMARK [0][-]{chapter*.10}{List of Abbreviations}{}
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}
+\BOOKMARK [1][-]{section.1.1}{Optical character recognition system}{chapter.1}
+\BOOKMARK [1][-]{section.1.2}{Challenges}{chapter.1}
+\BOOKMARK [1][-]{section.1.3}{Tamil Character Set}{chapter.1}
+\BOOKMARK [1][-]{section.1.4}{Previous work}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{System Architecture}{}
+\BOOKMARK [1][-]{section.2.1}{Chapter Organisation}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{Architecture}{chapter.2}
+\BOOKMARK [1][-]{section.2.3}{Deliverables}{chapter.2}
+\BOOKMARK [2][-]{subsection.2.3.1}{RPT}{section.2.3}
+\BOOKMARK [2][-]{subsection.2.3.2}{SVMTC}{section.2.3}
+\BOOKMARK [0][-]{chapter.3}{Preprocessing}{}
+\BOOKMARK [1][-]{section.3.1}{Gray scale conversion}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{Thresholding}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{Image Binarization}{chapter.3}
+\BOOKMARK [1][-]{section.3.4}{Skew Detection and Correction}{chapter.3}
+\BOOKMARK [1][-]{section.3.5}{Character segmentation}{chapter.3}
+\BOOKMARK [1][-]{section.3.6}{Page Layout Analysis}{chapter.3}
+\BOOKMARK [1][-]{section.3.7}{Size Normalization}{chapter.3}
+\BOOKMARK [1][-]{section.3.8}{Implementation}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{Feature Extraction}{}
+\BOOKMARK [1][-]{section.4.1}{Active contour model}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{Random Projection}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{Character geometry}{chapter.4}
+\BOOKMARK [1][-]{section.4.4}{Hu's Moments}{chapter.4}
+\BOOKMARK [1][-]{section.4.5}{Affine moment invariants}{chapter.4}
+\BOOKMARK [1][-]{section.4.6}{Gabor Filter}{chapter.4}
+\BOOKMARK [1][-]{section.4.7}{Implementation}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{Training and classification}{}
+\BOOKMARK [1][-]{section.5.1}{Support Vector Machine}{chapter.5}
+\BOOKMARK [2][-]{subsection.5.1.1}{Primal form}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.2}{Dual form}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.3}{Soft margin}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.4}{Non-linear classification}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.5}{Multiclass SVM}{section.5.1}
+\BOOKMARK [2][-]{subsection.5.1.6}{Parameter selection}{section.5.1}
+\BOOKMARK [1][-]{section.5.2}{Implementation}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{Hierarchal classification}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{Results}{}
+\BOOKMARK [1][-]{section.6.1}{Dataset}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{Tools}{chapter.6}
+\BOOKMARK [2][-]{subsection.6.2.1}{Tesseract OCR Architecture}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.2}{Module description for making changes}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.3}{Classification}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.4}{Features}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.5}{Running Tesseract}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.6}{Extracting bounding box information}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.7}{Using Moshpytt with Tesseract}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.8}{Custom tools}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.9}{Elusive samples}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.10}{Confusion matrix}{section.6.2}
+\BOOKMARK [2][-]{subsection.6.2.11}{Statistics}{section.6.2}
+\BOOKMARK [0][-]{chapter.7}{Application and Conclusion}{}
+\BOOKMARK [1][-]{section.7.1}{Application}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{Conclusion and Future enhancement}{chapter.7}
+\BOOKMARK [0][-]{section.7.2}{References}{}
+\BOOKMARK [0][-]{appendix.A}{Appendix}{}
+\BOOKMARK [1][-]{section.A.1}{Character classes in Tamil OCR}{appendix.A}
